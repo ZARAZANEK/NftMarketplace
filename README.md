@@ -89,5 +89,5 @@ Storage: Cloudinary
 
 APIs: ExchangeRate API, CoinGecko API
 
-📜 Ліцензія
+121 Ліцензія
 MIT License © 2025
