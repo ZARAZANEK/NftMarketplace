@@ -1,24 +1,24 @@
-📦 NFT Marketplace
+ NFT Marketplace
 Повноцінний fullstack застосунок для створення та перегляду продуктів з підтримкою різних валют (у тому числі криптовалют). Фронтенд побудований на Next.js + TypeScript + TailwindCSS, бекенд — Node.js + Express + MongoDB (Mongoose). Підтримується завантаження зображень у Cloudinary, авторизація через JWT, кошик з конвертацією валют у USD (через API).
 
-🚀 Функціонал
-🔑 Авторизація користувачів (JWT)
+ Функціонал
+ Авторизація користувачів (JWT)
 
-➕ Створення продуктів з фото, описом, категорією, ключовими словами
+ Створення продуктів з фото, описом, категорією, ключовими словами
 
-💱 Підтримка багатьох валют (USD, EUR, UAH, BTC, ETH, SOL тощо)
+ Підтримка багатьох валют (USD, EUR, UAH, BTC, ETH, SOL тощо)
 
-🔄 Автоматична конвертація у USD для підрахунку підсумків
+ Автоматична конвертація у USD для підрахунку підсумків
 
-🛒 Кошик з підрахунком subtotal, shipping, total
+ Кошик з підрахунком subtotal, shipping, total
 
-🎟 Промокоди (наприклад, SAVE10)
+ Промокоди (наприклад, SAVE10)
 
-🌗 Темна/світла тема
+ Темна/світла тема
 
-📂 Завантаження зображень у Cloudinary
+ Завантаження зображень у Cloudinary
 
-📂 Структура проєкту
+ Структура проєкту
 Код
 .
 ├── backend/              # Серверна частина (Express + MongoDB)
@@ -37,7 +37,7 @@
 │   └── styles/           # Tailwind
 │
 └── README.md
-⚙️ Встановлення та запуск
+ Встановлення та запуск
 1. Клонування репозиторію
 bash
 git clone https://github.com/your-username/nft-marketplace.git
@@ -73,12 +73,12 @@ bash
 npm run dev
 Фронтенд буде доступний на http://localhost:3000.
 
-🌍 API для валют
+ API для валют
 Fiat: open.er-api.com
 
 Crypto: CoinGecko API
 
-🛠 Використані технології
+ Використані технології
 Frontend: Next.js, React, TypeScript, TailwindCSS, next-themes
 
 Backend: Node.js, Express, MongoDB, Mongoose
