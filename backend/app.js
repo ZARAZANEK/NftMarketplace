@@ -14,7 +14,11 @@ const app = express()
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: [
+    "http://localhost:3000",
+    "https://nft-marketplace-silk-six.vercel.app",
+    "https://nft-marketplace-git-main-maxums-projects-f58e5191.vercel.app"
+  ],
   credentials: true
 }))
 app.use(express.json())
