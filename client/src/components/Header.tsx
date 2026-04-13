@@ -16,18 +16,19 @@ interface User {
 }
 
 interface HeaderProps {
-  showSearch: boolean;
+  showSearch?: boolean; // залишимо опціональним
+  onSearch?: (term: string) => void;
 }
 
-export default function Header() {
+export default function Header({ showSearch = true, onSearch }: HeaderProps) {
   const router = useRouter();
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const { searchTerm, setSearchTerm } = useSearch();
   const [user, setUser] = useState<User | null>(null);
   const { items } = useCart();
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
+  const { searchTerm, setSearchTerm } = useSearch();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -73,6 +74,9 @@ export default function Header() {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
+    if (onSearch) {
+      onSearch(e.target.value);
+    }
   };
 
   const handleLogout = () => {
@@ -170,21 +174,33 @@ export default function Header() {
             </Link>
           )}
 
-          <Link href="/Cart" className="relative">
+          <Link key="cart-icon" href="/Cart" className="relative">
             <ShoppingCart
               className={`w-7 h-7 transition-colors ${
                 theme === "dark" ? "text-white hover:text-blue-400" : "text-black hover:text-blue-600"
               }`}
+              onClick={() => setMenuOpen(false)}
             />
             {cartCount > 0 && (
               <span
                 className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full shadow-lg"
+                onClick={() => setMenuOpen(false)}
               >
                 {cartCount}
               </span>
             )}
           </Link>
 
+          <Link key="cart-text" href="/Cart"
+            className={`px-3 py-2 rounded border-[1px] border-gray-300 text-center transition-colors ${
+              theme === "dark"
+                ? "text-white border-gray-700 hover:bg-gray-900"
+                : "text-black shadow-lg hover:bg-gray-200"
+            }`}
+            onClick={() => setMenuOpen(false)}
+          >
+            Cart
+          </Link>
 
           <button
             onClick={() =>

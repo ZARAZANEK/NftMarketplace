@@ -5,7 +5,23 @@ import { useTheme } from "next-themes";
 import { useCart } from "@/context/CartContext";
 import { useRouter } from "next/navigation";
 
-const ProductCard = ({ product }) => {
+interface Product {
+  id?: string;
+  _id?: string;
+  title: string;
+  description?: string;
+  category?: string;
+  author?: string;
+  price: number;
+  currency?: string;
+  imageUrl?: string;
+}
+
+interface ProductCardProps {
+  product: Product;
+}
+
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { theme } = useTheme();
   const { addItem, ratesReady } = useCart();
   const router = useRouter();
@@ -21,10 +37,10 @@ const ProductCard = ({ product }) => {
       return;
     }
     addItem({
-      id: product.id || product._id,
-      name: product.name,
+      id: product.id || product._id || "",
+      name: product.title,
       price: Number(product.price),
-      image: product.image,
+      image: product.imageUrl || "",
       quantity,
       currency: (product.currency || "USD").toUpperCase(),
     });
@@ -38,23 +54,25 @@ const ProductCard = ({ product }) => {
         ${theme === "dark" ? "bg-gray-800 text-white border-gray-700" : "bg-white text-black border-gray-100"}`}
     >
       <div className="overflow-hidden rounded-t-md">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="object-cover w-full h-64 md:h-72 transform transition-transform duration-300 hover:scale-110"
-        />
+        {product.imageUrl && (
+          <img
+            src={product.imageUrl}
+            alt={product.title}
+            className="object-cover w-full h-64 transition-transform duration-300 transform md:h-72 hover:scale-110"
+          />
+        )}
       </div>
 
       <h3 className="px-3 mt-2 text-xl font-bold">
-        {product.name.length > 14
-          ? product.name.slice(0, 20) + "..."
-          : product.name}
+        {product.title.length > 14
+          ? product.title.slice(0, 20) + "..."
+          : product.title}
       </h3>
 
-      <p className="px-3 mt-1 text-gray-600 dark:text-gray-400 truncate">
+      <p className="px-3 mt-1 text-gray-600 truncate dark:text-gray-400">
         {product.description}
       </p>
-      <div className="flex justify-between items-center px-3 mt-2">
+      <div className="flex items-center justify-between px-3 mt-2">
         <p className="text-sm text-gray-500 dark:text-gray-400">
           Author: {product.author || "Unknown"}
         </p>
@@ -66,29 +84,29 @@ const ProductCard = ({ product }) => {
       <div className="p-3">
         <button
           onClick={() => setIsOpen(true)}
-          className="w-full px-4 py-2 mt-3 text-white bg-blue-600 rounded hover:bg-green-700 transition"
+          className="w-full px-4 py-2 mt-3 text-white transition bg-blue-600 rounded hover:bg-green-700"
         >
           Buy
         </button>
       </div>
 
       {isOpen && (
-        <div className="fixed p-10 inset-0 flex items-center justify-center backdrop-blur-sm bg-black/30 z-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-10 backdrop-blur-sm bg-black/30">
           <div
-            className={` rounded-lg shadow-lg w-150 max-h-[90vh] overflow-y-auto ${
+            className={`rounded-lg shadow-lg w-150 max-h-[90vh] overflow-y-auto ${
               theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"
             }`}
           >
-            {product.image && (
+            {product.imageUrl && (
               <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-55 object-cover rounded mb-4"
+                src={product.imageUrl}
+                alt={product.title}
+                className="object-cover w-full mb-4 rounded h-55"
               />
             )}
 
             <h2 className="relative text-[30px] left-5 font-bold mb-4">
-              {product.name}
+              {product.title}
             </h2>
 
             <div className="relative left-3 top-[-10] max-w-120">
@@ -125,20 +143,20 @@ const ProductCard = ({ product }) => {
               />
             </label>
 
-            <p className="block ml-3 font-semibold mb-4">
+            <p className="block mb-4 ml-3 font-semibold">
               Total: {total} {product.currency}
             </p>
 
             <div className="flex justify-between">
               <button
                 onClick={() => setIsOpen(false)}
-                className="px-4 py-2 ml-3 mb-5 bg-gray-400 text-white rounded hover:bg-gray-500"
+                className="px-4 py-2 mb-5 ml-3 text-white bg-gray-400 rounded hover:bg-gray-500"
               >
                 Close
               </button>
               <button
                 onClick={handleConfirmPurchase}
-                className="px-4 py-2 mr-3 mb-5 bg-green-600 text-white rounded hover:bg-green-700"
+                className="px-4 py-2 mb-5 mr-3 text-white bg-green-600 rounded hover:bg-green-700"
               >
                 Add to cart
               </button>

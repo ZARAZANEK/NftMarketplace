@@ -14,8 +14,8 @@ const Footer: React.FC = () => {
           ? "bg-gray-950 text-white border-gray-700"
           : "bg-gray-100 text-black border-gray-300"}`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div>
             <h3
               className={`text-lg font-bold mb-4 ${
@@ -40,11 +40,11 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               {[
                 { href: "/", label: "All Products" },
-                { href: "/", label: "Art" },
-                { href: "/", label: "Game" },
-                { href: "/", label: "Collectible" },
+                { href: "/art", label: "Art" },
+                { href: "/game", label: "Game" },
+                { href: "/collectible", label: "Collectible" },
               ].map((link) => (
-                <li key={link.href}>
+                <li key={link.label}>
                   <Link
                     href={link.href}
                     className={`transition-colors duration-300 ${
@@ -89,7 +89,7 @@ const Footer: React.FC = () => {
               </button>
             </form>
 
-            <div className="flex space-x-6 mt-6">
+            <div className="flex mt-6 space-x-6">
               {[
                 { label: "Facebook", dark: "hover:text-blue-400", light: "hover:text-blue-600" },
                 { label: "Instagram", dark: "hover:text-pink-400", light: "hover:text-pink-600" },

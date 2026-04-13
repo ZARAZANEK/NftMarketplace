@@ -14,7 +14,7 @@ const GoogleButton: React.FC<GoogleButtonProps> = ({ redirectTo = "/profile" }) 
     try {
       const token = response.credential;
 
-      const res = await fetch("http://localhost:5000/api/auth/google", {
+      const res = await fetch("https://nftmarketplace-3j5a.onrender.com/api/auth/google", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ idToken: token }),
@@ -30,7 +30,6 @@ const GoogleButton: React.FC<GoogleButtonProps> = ({ redirectTo = "/profile" }) 
       alert("Google login failed. Please try again.");
     }
   }, [router, redirectTo]);
-
 
   useEffect(() => {
     if (typeof window === "undefined" || !window.google) return;

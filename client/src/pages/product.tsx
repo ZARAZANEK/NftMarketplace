@@ -34,12 +34,12 @@ export default function ProductsPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-transparent text-white">
+    <div className="w-full min-h-screen text-white bg-transparent">
       <Header onSearch={handleSearch} />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+      <div className="grid grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {filteredProducts.map(product => (
-          <ProductCard key={product._id} {...product} />
+          <ProductCard key={product._id} product={product} />
         ))}
       </div>
     </div>
