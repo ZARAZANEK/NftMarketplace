@@ -38,8 +38,12 @@ export default function HomePage() {
   const currentProducts = filteredProducts.slice(indexOfFirst, indexOfLast);
 
   useEffect(() => {
-    fetch("https://nftmarketplace-2.onrender.com/api/products")
-      .then(res => res.json())
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    fetch(`${API_URL}/products`)
+      .then(res => {
+        if (!res.ok) throw new Error(`Failed: ${res.status}`);
+        return res.json();
+      })
       .then((data: Product[]) => {
         setProducts(data);
         setFilteredProducts(data);
@@ -85,7 +89,7 @@ export default function HomePage() {
       {/* Filters */}
       <div className="px-4 mx-auto mt-10 mb-8 max-w-7xl">
         <h1 className="mb-4 text-2xl font-bold text-center">Filters</h1>
-        {/* ... решта JSX для фільтрів */}
+        {/* Тут JSX для фільтрів */}
       </div>
 
       {/* Products */}
@@ -98,7 +102,7 @@ export default function HomePage() {
                   key={p._id}
                   product={{
                     ...p,
-                    title: p.name, // додаємо поле title
+                    title: p.name,
                   }}
                 />
               ))}
