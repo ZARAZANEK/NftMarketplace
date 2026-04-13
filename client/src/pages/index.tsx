@@ -38,7 +38,7 @@ export default function HomePage() {
   const currentProducts = filteredProducts.slice(indexOfFirst, indexOfLast);
 
   useEffect(() => {
-    fetch("https://nftmarketplace-3j5a.onrender.com/api/products")
+    fetch("https://nftmarketplace-2.onrender.com/api/products")
       .then(res => res.json())
       .then((data: Product[]) => {
         setProducts(data);
