@@ -14,6 +14,8 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -21,7 +23,7 @@ export default function SignupPage() {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/api/auth/signup", {
+      const res = await fetch(`${API_URL}/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, password }),
@@ -41,7 +43,7 @@ export default function SignupPage() {
     }
   };
 
-  if (!mounted) return null; 
+  if (!mounted) return null;
 
   return (
     <div
@@ -55,7 +57,7 @@ export default function SignupPage() {
             : "bg-gray-50 text-black shadow-[0_0_15px_rgba(59,130,246,0.6)]"}`}
         onSubmit={handleSignup}
       >
-        <h1 className="text-2xl font-bold text-center mb-6">Sign Up</h1>
+        <h1 className="mb-6 text-2xl font-bold text-center">Sign Up</h1>
 
         <label className="block mb-1">Username</label>
         <input
@@ -106,9 +108,9 @@ export default function SignupPage() {
             Login
           </a>
         </p>
-      <div className="w-full max-w-md mt-6">
-        <GoogleButton redirectTo="/profile" />
-      </div>
+        <div className="w-full max-w-md mt-6">
+          <GoogleButton redirectTo="/profile" />
+        </div>
       </form>
     </div>
   );

@@ -13,13 +13,15 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/api/auth/signin", {
+      const res = await fetch(`${API_URL}/auth/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -34,7 +36,7 @@ export default function LoginPage() {
           localStorage.setItem("user", JSON.stringify(data.user));
           setUser(data.user);
         } else {
-          const profileRes = await fetch("http://localhost:5000/api/auth/profile", {
+          const profileRes = await fetch(`${API_URL}/auth/profile`, {
             headers: { Authorization: `Bearer ${data.token}` },
           });
           if (profileRes.ok) {
@@ -71,7 +73,7 @@ export default function LoginPage() {
               : "bg-gray-50 text-black shadow-[0_0_15px_rgba(59,130,246,0.6)]"
           }`}
       >
-        <h1 className="text-2xl font-bold text-center mb-6">Login</h1>
+        <h1 className="mb-6 text-2xl font-bold text-center">Login</h1>
 
         <label className="block mb-1">Email</label>
         <input
@@ -105,7 +107,7 @@ export default function LoginPage() {
 
         <button
           type="submit"
-          className="w-full p-3 mt-2 bg-blue-600 rounded hover:bg-blue-500 transition-colors"
+          className="w-full p-3 mt-2 transition-colors bg-blue-600 rounded hover:bg-blue-500"
         >
           Login
         </button>

@@ -17,17 +17,26 @@ export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   useEffect(() => {
-    fetch("http://localhost:5000/")
-      .then(res => res.json())
-      .then(data => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch(`${API_URL}/products`);
+        if (!res.ok) throw new Error(`Failed: ${res.status}`);
+        const data = await res.json();
         setProducts(data);
         setFilteredProducts(data);
-      });
-  }, []);
+      } catch (err) {
+        console.error("Failed to fetch products:", err);
+      }
+    };
+
+    fetchProducts();
+  }, [API_URL]);
 
   const handleSearch = (term: string) => {
-    const filtered = products.filter(p =>
+    const filtered = products.filter((p) =>
       p.title.toLowerCase().includes(term.toLowerCase())
     );
     setFilteredProducts(filtered);
@@ -38,7 +47,7 @@ export default function ProductsPage() {
       <Header onSearch={handleSearch} />
 
       <div className="grid grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {filteredProducts.map(product => (
+        {filteredProducts.map((product) => (
           <ProductCard key={product._id} product={product} />
         ))}
       </div>
