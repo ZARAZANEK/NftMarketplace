@@ -23,7 +23,11 @@ app.use('/api/auth', authRoutes)
 
 app.use("/api/products", productsRouter);
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  ssl: true
+})
   .then(() => console.log('✅ MongoDB connected'))
   .catch((err) => console.error('❌ MongoDB connection error:', err))
 
