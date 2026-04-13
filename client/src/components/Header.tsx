@@ -15,6 +15,10 @@ interface User {
   createdAt: string;
 }
 
+interface HeaderProps {
+  showSearch: boolean;
+}
+
 export default function Header() {
   const router = useRouter();
   const { theme, setTheme, resolvedTheme } = useTheme();
@@ -85,15 +89,15 @@ export default function Header() {
           : "bg-white text-black shadow-[0_0_15px_rgba(59,130,246,0.6)]"
       }`}
     >
-      <div className="flex items-center justify-between px-4 md:px-6 py-4 mx-auto max-w-7xl">
+      <div className="flex items-center justify-between px-4 py-4 mx-auto md:px-6 max-w-7xl">
         <Link
           href="/"
-          className="text-2xl sm:text-3xl md:text-4xl font-extrabold gradient-text"
+          className="text-2xl font-extrabold sm:text-3xl md:text-4xl gradient-text"
         >
           NFT Marketplace
         </Link>
 
-        <div className="hidden md:flex md:flex-1 md:justify-end items-center space-x-3">
+        <div className="items-center hidden space-x-3 md:flex md:flex-1 md:justify-end">
           <div
             className={`flex items-center gap-2 px-3 py-2 rounded-2xl w-60 border transition-all duration-300 ${
               theme === "dark"
@@ -196,7 +200,7 @@ export default function Header() {
           </button>
         </div>
 
-        <div className="flex md:hidden items-center ml-auto gap-3">
+        <div className="flex items-center gap-3 ml-auto md:hidden">
           <button onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -209,7 +213,7 @@ export default function Header() {
             theme === "dark" ? "bg-gray-950 text-white" : "bg-white text-black"
           }`}
         >
-          <div className="flex items-center gap-2 px-3 py-2 rounded-2xl w-full border">
+          <div className="flex items-center w-full gap-2 px-3 py-2 border rounded-2xl">
             <Search
               className={`w-5 h-5 ${
                 theme === "dark" ? "text-white" : "text-black"

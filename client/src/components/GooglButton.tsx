@@ -10,7 +10,7 @@ interface GoogleButtonProps {
 const GoogleButton: React.FC<GoogleButtonProps> = ({ redirectTo = "/profile" }) => {
   const router = useRouter();
 
-  const handleCredentialResponse = useCallback(async (response: any) => {
+  const handleCredentialResponse = useCallback(async (response: { credential: string }) => {
     try {
       const token = response.credential;
 
@@ -31,6 +31,7 @@ const GoogleButton: React.FC<GoogleButtonProps> = ({ redirectTo = "/profile" }) 
     }
   }, [router, redirectTo]);
 
+
   useEffect(() => {
     if (typeof window === "undefined" || !window.google) return;
 
@@ -50,7 +51,7 @@ const GoogleButton: React.FC<GoogleButtonProps> = ({ redirectTo = "/profile" }) 
     );
   }, [handleCredentialResponse]);
 
-  return <div id="googleButtonDiv" className="my-4 w-full" />;
+  return <div id="googleButtonDiv" className="w-full my-4" />;
 };
 
 export default GoogleButton;
